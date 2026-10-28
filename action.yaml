@@ -1,0 +1,29 @@
+name: Bump version
+description: Sets the version in package.json one patch above the base branch and pushes the commit to the pull request branch
+author: gi-org-pl
+
+inputs:
+  app-slug:
+    description: Slug of the GitHub App whose bot authors the commit, from the `app-slug` output of `actions/create-github-app-token`
+    required: false
+    default: github-actions
+  base-ref:
+    description: Branch whose version is bumped
+    required: false
+    default: ${{ github.base_ref }}
+  working-directory:
+    description: Directory with the package.json file
+    required: false
+    default: .
+
+runs:
+  using: composite
+  steps:
+    - name: Bump the patch version
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      env:
+        APP_SLUG: ${{ inputs.app-slug }}
+        BASE_REF: ${{ inputs.base-ref }}
+        GH_TOKEN: ${{ github.token }}
+      run: ${{ github.action_path }}/bump-version.sh
