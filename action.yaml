@@ -1,4 +1,4 @@
-name: Bump version
+name: Bump pull request version
 description: Sets the version in package.json one patch above the base branch and pushes the commit to the pull request branch
 author: gi-org-pl
 
